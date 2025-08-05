@@ -1,0 +1,15 @@
+@import "tailwindcss";
+
+* {
+  font-family: "Didact Gothic", sans-serif;
+  /* font-weight: 400;
+  font-style: normal; */
+}
+
+@theme {
+  --color-custom-blue: #0063a4;
+  --color-custom-pink: #ff0b80;
+  --color-custom-green: #00a17f;
+  --color-custom-yellow: #fcba4d;
+  --color-custom-lightblue: #d2e5f2;
+}
