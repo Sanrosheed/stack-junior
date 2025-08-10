@@ -8,7 +8,7 @@ import { motion } from "framer-motion";
 export default function CoursesList() {
   const cardVariants = {
     hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.2 } },
   };
 
   const courses = [
@@ -34,11 +34,7 @@ export default function CoursesList() {
     },
   ];
   return (
-    <motion.div
-      initial="hidden"
-      whileInView="visible"
-      variants={cardVariants}
-      viewport={{ once: false, amount: 0.2 }}
+    <div
       className={`pt-8 pb-14  -mt-8 px-10 md:px-20 rounded-t-4xl bg-custom-yellow`}
     >
       <h1
@@ -49,13 +45,20 @@ export default function CoursesList() {
       <div>
         <div className="flex flex-col md:grid grid-cols-2 md:gap-x-10 gap-y-8 md:gap-y-20">
           {courses?.map((course, index) => (
-            <div key={index} className="flex flex-col items-center bg-white">
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              variants={cardVariants}
+              viewport={{ once: false, amount: 0.5 }}
+              key={index}
+              className="flex flex-col items-center bg-white"
+            >
               <img src={course.img} alt="image" className="md:h-96" />
               <p className="pb-3 font-semibold text-lg">{course.name}</p>
               <div className="bg-custom-blue py-4 w-full flex justify-center font-semibold text-white">
                 <a href={course.path}>Click to learn more</a>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
         <div className="flex justify-center mt-16">
@@ -64,6 +67,6 @@ export default function CoursesList() {
           </button>
         </div>
       </div>
-    </motion.div>
+    </div>
   );
 }
