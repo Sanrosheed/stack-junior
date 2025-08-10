@@ -5,7 +5,7 @@ import Img4 from "../../../assets/images/tutorial 5.png";
 // eslint-disable-next-line no-unused-vars
 import { motion } from "framer-motion";
 
-export default function Features() {
+export default function Features({ bgColor, feature }) {
   const cardVariants = {
     hidden: { opacity: 0, y: 20 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
@@ -16,9 +16,15 @@ export default function Features() {
       whileInView="visible"
       variants={cardVariants}
       viewport={{ once: false, amount: 0.2 }}
-      className="py-8 px-10 md:px-20 mt-6"
+      className={`pt-8 pb-14 mt-8 md:mt-0 px-10 md:px-20 rounded-t-4xl ${
+        bgColor ? bgColor : ""
+      }`}
     >
-      <h1 className="text-xl md:text-4xl font-bold py-4 md:mb-16">
+      <h1
+        className={`text-xl md:text-4xl font-bold py-4 md:mb-16 ${
+          feature ? "flex justify-center" : ""
+        }`}
+      >
         Features Include
       </h1>
       <div>

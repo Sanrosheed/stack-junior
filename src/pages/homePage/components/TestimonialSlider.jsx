@@ -60,10 +60,10 @@ export default function TestimonialSlider() {
         {/* Right: Testimonial */}
         <div className="w-full md:w-1/2 mt-10 md:mt-0 flex flex-col gap-10">
           <div className="transition duration-700 ease-in-out">
-            <p className="text-2xl italic md:mb-4">
+            <p className="text-lg md:text-2xl italic md:mb-4">
               {testimonials[currentIndex].content}
             </p>
-            <p className="text-2xl font-semibold">
+            <p className="text-lg md:text-2xl font-semibold">
               - {testimonials[currentIndex].author}
             </p>
           </div>
