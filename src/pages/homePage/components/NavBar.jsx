@@ -45,8 +45,8 @@ export default function NavBar({ backgroundColor, text, coloredLogo }) {
             </a>
           </li>
           <li>
-            <a href="/contact" className="hover:text-custom-pink">
-              Quick Tutorials
+            <a href="/contact-us" className="hover:text-custom-pink">
+              Contact Us
             </a>
           </li>
         </ul>
@@ -76,7 +76,7 @@ export default function NavBar({ backgroundColor, text, coloredLogo }) {
           </li>
           <li>
             <a href="/" className="block hover:text-custom-pink">
-              Quick Tutorials
+              Contact Us
             </a>
           </li>
           <li>
