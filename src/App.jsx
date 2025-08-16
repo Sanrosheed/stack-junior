@@ -5,6 +5,8 @@ import About from "./pages/about/About";
 import Courses from "./pages/courses/Courses";
 import ViewCourse from "./pages/courses/components/ViewCourse";
 import Contact from "./pages/contact-us/Contact";
+import SignUp from "./pages/auth-pages/SignUp";
+import SignIn from "./pages/auth-pages/SignIn";
 
 function App() {
   return (
@@ -15,6 +17,8 @@ function App() {
         <Route path="/courses" element={<Courses />} />
         <Route path="/courses/view-course" element={<ViewCourse />} />
         <Route path="/contact-us" element={<Contact />} />
+        <Route path="/sign-up" element={<SignUp />} />
+        <Route path="/sign-in" element={<SignIn />} />
       </Routes>
     </BrowserRouter>
   );

@@ -2,9 +2,11 @@ import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import logo from "../../../assets/images/stackJuniorLogo.png";
 import coloredStackLogo from "../../../assets/images/stackJuniorColoredLogo.png";
+import { useAuth } from "../../../contexts/authContext";
 
 export default function NavBar({ backgroundColor, text, coloredLogo }) {
   const [isOpen, setIsOpen] = useState(false);
+  const { userLoggedIn } = useAuth();
 
   const handleToggle = () => {
     setIsOpen(!isOpen);
@@ -45,7 +47,10 @@ export default function NavBar({ backgroundColor, text, coloredLogo }) {
             </a>
           </li>
           <li>
-            <a href="/contact-us" className="hover:text-custom-pink">
+            <a
+              href="/contact-us"
+              className="hover:text-custom-pink cursor-pointer"
+            >
               Contact Us
             </a>
           </li>
@@ -53,9 +58,9 @@ export default function NavBar({ backgroundColor, text, coloredLogo }) {
 
         {/* button */}
         <div className="hidden md:flex items-center space-x-16 text-lg">
-          <h1 className="font-semibold">My Account</h1>
-          <a href="">
-            <button className="text-white lg:block bg-custom-pink px-6 py-2 rounded-full font-semibold">
+          <h1 className="font-semibold cursor-pointer">My Account</h1>
+          <a href="/sign-up">
+            <button className="text-white lg:block bg-custom-pink px-6 py-2 rounded-full font-semibold cursor-pointer">
               Start Learning
             </button>
           </a>
@@ -85,7 +90,7 @@ export default function NavBar({ backgroundColor, text, coloredLogo }) {
             </a>
           </li>
           <li>
-            <a href="">
+            <a href={userLoggedIn ? "/courses" : "/sign-up"}>
               <button
                 className={`text-white bg-custom-pink px-6 py-2 rounded-full font-semibold w-full`}
               >
@@ -98,3 +103,12 @@ export default function NavBar({ backgroundColor, text, coloredLogo }) {
     </nav>
   );
 }
+
+// For later use, if displaying user's name is needed
+
+// const { currentUser } = useAuth();
+
+// to display user's name
+// <h1 className="font-semibold cursor-pointer">
+//   Welcome, {currentUser.displayName ? currentUser.displayName : currentUser.email}, you are now logged in!
+// </h1>
