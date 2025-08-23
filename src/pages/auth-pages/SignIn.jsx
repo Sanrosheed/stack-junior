@@ -1,15 +1,16 @@
 import React, { useState } from "react";
-import { FaFacebook } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import Image from "../../assets/images/kid 2.png";
 import Logo from "../../assets/images/stackJuniorLogo.png";
-import { IoMdEye } from "react-icons/io";
+import { IoMdEye, IoMdEyeOff } from "react-icons/io";
 import {
   doSignInWithEmailAndPassword,
   doSignInWithGoogle,
 } from "../../firebase/auth";
 import { useAuth } from "../../contexts/authContext";
 import { Navigate } from "react-router-dom";
+import { FaUserTie } from "react-icons/fa";
+import { useToast } from "../../contexts/toastContext";
 
 export default function SignIn() {
   const { userLoggedIn } = useAuth();
@@ -17,26 +18,39 @@ export default function SignIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isSigningIn, setIsSigningIn] = useState(false);
-  // eslint-disable-next-line no-unused-vars
-  const [errorMessage, setErrorMessage] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const { showSuccess, showError } = useToast();
+
+  const togglePasswordVisibility = () => setShowPassword((prev) => !prev);
 
   const onSubmit = async (e) => {
     e.preventDefault();
     if (!isSigningIn) {
       setIsSigningIn(true);
-      await doSignInWithEmailAndPassword(email, password);
-      //   to handle errors
+      try {
+        await doSignInWithEmailAndPassword(email, password);
+        showSuccess("Signed in successfully");
+      } catch (err) {
+        showError(
+          "Failed to sign in. Please check your credentials.",
+          err.message
+        );
+        setIsSigningIn(false);
+      }
     }
   };
 
-  const onGoogleSignIn = (e) => {
+  const onGoogleSignIn = async (e) => {
     e.preventDefault();
     if (!isSigningIn) {
       setIsSigningIn(true);
-      // eslint-disable-next-line no-unused-vars
-      doSignInWithGoogle().catch((err) => {
+      try {
+        await doSignInWithGoogle();
+        showSuccess("Signed in successfully");
+      } catch (err) {
+        showError("Google sign-in failed. Try again.", err.message);
         setIsSigningIn(false);
-      });
+      }
     }
   };
 
@@ -74,7 +88,7 @@ export default function SignIn() {
                 onClick={(e) => {
                   onGoogleSignIn(e);
                 }}
-                className="px-4 md:px-0 md:flex-1 flex items-center justify-center gap-2 border border-gray-300 rounded-lg py-2 hover:bg-gray-50 transition"
+                className="px-4 md:px-0 md:flex-1 flex items-center justify-center gap-2 border border-gray-300 rounded-lg py-2 hover:bg-gray-50 transition cursor-pointer"
               >
                 <FcGoogle className="text-red-500" />
                 <span className="text-xs md:text-sm font-medium">
@@ -82,9 +96,9 @@ export default function SignIn() {
                 </span>
               </button>
               <button className="px-4 md:px-0 md:flex-1 flex items-center justify-center gap-2 border border-gray-300 rounded-lg py-2 hover:bg-gray-50 transition">
-                <FaFacebook className="text-blue-600" />
+                <FaUserTie className="text-gray-900" />
                 <span className="text-xs md:text-sm font-medium">
-                  Sign in with Facebook
+                  Sign in as admin
                 </span>
               </button>
             </div>
@@ -111,7 +125,7 @@ export default function SignIn() {
               />
               <div className="relative">
                 <input
-                  type="password"
+                  type={showPassword ? "text" : "password"}
                   autoComplete="current-password"
                   value={password}
                   onChange={(e) => {
@@ -121,19 +135,22 @@ export default function SignIn() {
                   placeholder="Password"
                   className="border-b border-gray-300 focus:outline-none py-2 w-full placeholder-gray-400"
                 />
-                <span className="absolute right-0 top-2 cursor-pointer text-gray-400">
-                  <IoMdEye className="w-5 h-5 text-gray-500" />
+                <span
+                  onClick={togglePasswordVisibility}
+                  className="absolute right-0 top-2 cursor-pointer text-gray-400"
+                >
+                  {showPassword ? (
+                    <IoMdEye className="w-5 h-5 text-gray-500" />
+                  ) : (
+                    <IoMdEyeOff className="w-5 h-5 text-gray-500" />
+                  )}
                 </span>
               </div>
-
-              {errorMessage && (
-                <p className="text-red-500 text-sm mt-2">{errorMessage}</p>
-              )}
 
               <button
                 type="submit"
                 disabled={isSigningIn}
-                className="mt-4 text-xl bg-custom-pink text-white font-semibold py-3 rounded-lg shadow-md hover:shadow-lg transition"
+                className="mt-4 text-xl bg-custom-pink text-white font-semibold py-3 rounded-lg shadow-md hover:shadow-lg transition cursor-pointer"
               >
                 {isSigningIn ? "Signing In..." : "Sign In"}
               </button>

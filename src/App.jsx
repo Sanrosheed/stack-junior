@@ -7,6 +7,8 @@ import ViewCourse from "./pages/courses/components/ViewCourse";
 import Contact from "./pages/contact-us/Contact";
 import SignUp from "./pages/auth-pages/SignUp";
 import SignIn from "./pages/auth-pages/SignIn";
+import Profile from "./pages/profile/Profile";
+import Enrolled from "./pages/enrolled/Enrolled";
 
 function App() {
   return (
@@ -19,6 +21,8 @@ function App() {
         <Route path="/contact-us" element={<Contact />} />
         <Route path="/sign-up" element={<SignUp />} />
         <Route path="/sign-in" element={<SignIn />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/enrolled-course" element={<Enrolled />} />
       </Routes>
     </BrowserRouter>
   );

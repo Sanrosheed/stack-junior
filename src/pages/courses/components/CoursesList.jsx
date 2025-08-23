@@ -15,22 +15,22 @@ export default function CoursesList() {
     {
       img: Img1,
       name: "Introduction to Programming",
-      path: "",
+      path: "/courses/view-course",
     },
     {
       img: Img2,
       name: "Frontend Development",
-      path: "",
+      path: "/courses/view-course",
     },
     {
       img: Img3,
       name: "UI / UX Design",
-      path: "",
+      path: "/courses/view-course",
     },
     {
       img: Img4,
       name: "SQL Programming",
-      path: "",
+      path: "/courses/view-course",
     },
   ];
   return (

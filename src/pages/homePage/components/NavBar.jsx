@@ -35,7 +35,7 @@ export default function NavBar({ backgroundColor, text, coloredLogo }) {
         </div>
 
         {/* Desktop Menu */}
-        <ul className="hidden lg:flex items-center space-x-16 text-lg">
+        <ul className="hidden lg:flex items-center space-x-16 text-lg z-50">
           <li>
             <a href="/courses" className="hover:text-custom-pink font-semibold">
               Courses
@@ -57,9 +57,11 @@ export default function NavBar({ backgroundColor, text, coloredLogo }) {
         </ul>
 
         {/* button */}
-        <div className="hidden md:flex items-center space-x-16 text-lg">
-          <h1 className="font-semibold cursor-pointer">My Account</h1>
-          <a href="/sign-up">
+        <div className="hidden md:flex items-center space-x-16 text-lg z-50">
+          <h1 className="font-semibold cursor-pointer">
+            <a href={userLoggedIn ? "/profile" : "/sign-in"}>My Account</a>
+          </h1>
+          <a href={userLoggedIn ? "/courses" : "/sign-in"}>
             <button className="text-white lg:block bg-custom-pink px-6 py-2 rounded-full font-semibold cursor-pointer">
               Start Learning
             </button>
@@ -80,17 +82,20 @@ export default function NavBar({ backgroundColor, text, coloredLogo }) {
             </a>
           </li>
           <li>
-            <a href="/" className="block hover:text-custom-pink">
+            <a href="/contact-us" className="block hover:text-custom-pink">
               Contact Us
             </a>
           </li>
           <li>
-            <a href="/" className="block hover:text-custom-pink">
+            <a
+              href={userLoggedIn ? "/profile" : "/sign-in"}
+              className="block hover:text-custom-pink"
+            >
               My Account
             </a>
           </li>
           <li>
-            <a href={userLoggedIn ? "/courses" : "/sign-up"}>
+            <a href={userLoggedIn ? "/courses" : "/sign-in"}>
               <button
                 className={`text-white bg-custom-pink px-6 py-2 rounded-full font-semibold w-full`}
               >

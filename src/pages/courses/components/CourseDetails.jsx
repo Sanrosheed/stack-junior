@@ -10,8 +10,10 @@ import { IoMdTime } from "react-icons/io";
 import { MdOutlineDescription } from "react-icons/md";
 import { IoVideocam } from "react-icons/io5";
 import courseImg from "../../../assets/images/courseImg1.png";
+import { useNavigate } from "react-router-dom";
 
 export default function CourseDetails() {
+  const navigate = useNavigate();
   const videos = [
     { title: "Introduction to Programming", time: "02 : 10" },
     { title: "Understanding Syntax", time: "02 : 50" },
@@ -50,7 +52,10 @@ export default function CourseDetails() {
                 <span>10 Videos</span>
               </div>
             </div>
-            <button className="mt-6 w-full text-xl bg-custom-pink text-white py-3 rounded-md font-bold shadow hover:bg-pink-600">
+            <button
+              onClick={() => navigate("/enrolled-course")}
+              className="mt-6 w-full text-xl bg-custom-pink text-white py-3 rounded-md font-bold shadow hover:bg-pink-600 cursor-pointer transition duration-300 ease-in-out"
+            >
               ENROLL NOW
             </button>
           </div>

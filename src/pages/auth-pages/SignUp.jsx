@@ -1,15 +1,16 @@
 import React, { useState } from "react";
-import { FaFacebook } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import Image from "../../assets/images/kid 2.png";
 import Logo from "../../assets/images/stackJuniorLogo.png";
-import { IoMdEye } from "react-icons/io";
+import { IoMdEye, IoMdEyeOff } from "react-icons/io";
 import { useAuth } from "../../contexts/authContext";
 import {
   doCreateUserWithEmailAndPassword,
   doSignInWithGoogle,
 } from "../../firebase/auth";
 import { Navigate } from "react-router-dom";
+import { FaUserCheck, FaUserTie } from "react-icons/fa";
+import { useToast } from "../../contexts/toastContext";
 
 export default function SignUp() {
   const { userLoggedIn } = useAuth();
@@ -18,13 +19,26 @@ export default function SignUp() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [isRegistering, setIsRegistering] = useState(false);
-  //   const [errorMessage, setErrorMessage] = useState("");
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const { showSuccess, showError } = useToast();
+
+  const togglePasswordVisibility = () => setShowPassword((prev) => !prev);
+  const toggleConfirmPasswordVisibility = () =>
+    setShowConfirmPassword((prev) => !prev);
 
   const onSubmit = async (e) => {
     e.preventDefault();
     if (!isRegistering) {
       setIsRegistering(true);
-      await doCreateUserWithEmailAndPassword(email, password);
+      try {
+        await doCreateUserWithEmailAndPassword(email, password);
+        showSuccess("Account created successfully");
+      } catch (err) {
+        showError("Failed to create account. Try again.", err.message);
+        setIsRegistering(false);
+      }
     }
   };
 
@@ -32,10 +46,15 @@ export default function SignUp() {
     e.preventDefault();
     if (!isRegistering) {
       setIsRegistering(true);
-      // eslint-disable-next-line no-unused-vars
-      doSignInWithGoogle().catch((err) => {
+      try {
+        // eslint-disable-next-line no-unused-vars
+        doSignInWithGoogle().catch((err) => {
+          setIsRegistering(false);
+        });
+      } catch (err) {
+        showError("Google sign-in failed. Try again.", err.message);
         setIsRegistering(false);
-      });
+      }
     }
   };
 
@@ -80,11 +99,24 @@ export default function SignUp() {
                   Sign up with Google
                 </span>
               </button>
-              <button className="px-4 md:px-0 md:flex-1 flex items-center justify-center gap-2 border border-gray-300 rounded-lg py-2 hover:bg-gray-50 transition">
-                <FaFacebook className="text-blue-600" />
+              <button
+                onClick={() => setIsAdmin((prev) => !prev)}
+                className={`px-4 md:px-0 md:flex-1 flex items-center justify-center gap-2 
+    border border-gray-300 rounded-lg py-2 cursor-pointer transition-colors duration-200
+    ${
+      isAdmin
+        ? "bg-green-600 text-white hover:bg-green-700"
+        : "bg-white text-gray-900 hover:bg-gray-50"
+    }`}
+              >
+                <FaUserTie
+                  className={`${isAdmin ? "text-white" : "text-gray-900"}`}
+                />
+
                 <span className="text-xs md:text-sm font-medium">
-                  Sign up with Facebook
+                  Sign up as admin
                 </span>
+                {/* <FaUserCheck /> */}
               </button>
             </div>
 
@@ -121,7 +153,7 @@ export default function SignUp() {
               />
               <div className="relative">
                 <input
-                  type="password"
+                  type={showPassword ? "text" : "password"}
                   autoComplete="new-password"
                   value={password}
                   onChange={(e) => {
@@ -131,13 +163,20 @@ export default function SignUp() {
                   placeholder="Password"
                   className="border-b border-gray-300 focus:outline-none py-2 w-full placeholder-gray-400"
                 />
-                <span className="absolute right-0 top-2 cursor-pointer text-gray-400">
-                  <IoMdEye className="w-5 h-5 text-gray-500" />
+                <span
+                  onClick={togglePasswordVisibility}
+                  className="absolute right-0 top-2 cursor-pointer text-gray-400"
+                >
+                  {showPassword ? (
+                    <IoMdEye className="w-5 h-5 text-gray-500" />
+                  ) : (
+                    <IoMdEyeOff className="w-5 h-5 text-gray-500" />
+                  )}
                 </span>
               </div>
               <div className="relative">
                 <input
-                  type="password"
+                  type={showConfirmPassword ? "text" : "password"}
                   value={confirmPassword}
                   onChange={(e) => {
                     setConfirmPassword(e.target.value);
@@ -146,8 +185,15 @@ export default function SignUp() {
                   placeholder="Confirm Password"
                   className="border-b border-gray-300 focus:outline-none py-2 w-full placeholder-gray-400"
                 />
-                <span className="absolute right-0 top-2 cursor-pointer text-gray-400">
-                  <IoMdEye className="w-5 h-5 text-gray-500" />
+                <span
+                  onClick={toggleConfirmPasswordVisibility}
+                  className="absolute right-0 top-2 cursor-pointer text-gray-400"
+                >
+                  {showConfirmPassword ? (
+                    <IoMdEye className="w-5 h-5 text-gray-500" />
+                  ) : (
+                    <IoMdEyeOff className="w-5 h-5 text-gray-500" />
+                  )}
                 </span>
               </div>
 
