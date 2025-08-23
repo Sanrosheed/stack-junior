@@ -30,29 +30,39 @@ export default function SignUp() {
 
   const onSubmit = async (e) => {
     e.preventDefault();
+
+    if (password !== confirmPassword) {
+      showError("Passwords do not match");
+      return;
+    }
+
     if (!isRegistering) {
       setIsRegistering(true);
       try {
         await doCreateUserWithEmailAndPassword(email, password);
+
         showSuccess("Account created successfully");
+        setIsRegistering(false); // ✅ unlock form
       } catch (err) {
-        showError("Failed to create account. Try again.", err.message);
+        showError(err.message || "Failed to create account. Try again.");
         setIsRegistering(false);
       }
     }
   };
 
-  const onGoogleSignIn = (e) => {
+  const onGoogleSignIn = async (e) => {
     e.preventDefault();
     if (!isRegistering) {
       setIsRegistering(true);
       try {
-        // eslint-disable-next-line no-unused-vars
-        doSignInWithGoogle().catch((err) => {
-          setIsRegistering(false);
-        });
+        await doSignInWithGoogle();
+
+        // OPTIONAL: Save user role (isAdmin) to Firestore here
+
+        showSuccess("Signed in with Google");
+        setIsRegistering(false);
       } catch (err) {
-        showError("Google sign-in failed. Try again.", err.message);
+        showError(err.message || "Google sign-in failed. Try again.");
         setIsRegistering(false);
       }
     }
