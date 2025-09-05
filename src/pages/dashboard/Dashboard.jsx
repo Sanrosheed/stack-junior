@@ -2,7 +2,7 @@ import { useState } from "react";
 import Header from "./components/Header";
 import Sidebar from "./components/Sidebar";
 import StatsCards from "./components/StatsCards";
-import AdminUpload from "../profile/adminUpload";
+import AdminUpload from "../profile/AdminUpload";
 import UploadedCourses from "../profile/UploadedCourses";
 import { IoArrowBackCircle } from "react-icons/io5";
 
