@@ -9,6 +9,7 @@ import SignUp from "./pages/auth-pages/SignUp";
 import SignIn from "./pages/auth-pages/SignIn";
 import Profile from "./pages/profile/Profile";
 import Enrolled from "./pages/enrolled/Enrolled";
+import Dashboard from "./pages/dashboard/Dashboard";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
         <Route path="/sign-in" element={<SignIn />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/enrolled-course" element={<Enrolled />} />
+        <Route path="/admin-dashboard" element={<Dashboard />} />
       </Routes>
     </BrowserRouter>
   );

@@ -1,5 +1,5 @@
 import { FaBell } from "react-icons/fa";
-import { IoSearchOutline } from "react-icons/io5";
+import { IoArrowBackCircle, IoSearchOutline } from "react-icons/io5";
 import { useAuth } from "../../contexts/authContext";
 import Image from "../../assets/images/profile-image.jpg";
 import NavBar from "../homePage/components/NavBar";
@@ -52,7 +52,10 @@ export default function Profile() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <NavBar />
+      {/* <NavBar /> */}
+      <a href="/" className="flex items-center cursor-pointer bg-white pt-4 px-6">
+          <IoArrowBackCircle className="mr-2 text-2xl" /> back
+        </a>
       {/* Top bar */}
       <div className="flex items-center justify-between px-6 py-4 bg-white shadow-sm">
         <div>
@@ -83,7 +86,7 @@ export default function Profile() {
             />
           </div>
           {/* Bell */}
-          <FaBell className="text-gray-500 w-5 h-5 cursor-pointer" />
+          <FaBell className="text-gray-700 w-5 h-5 cursor-pointer" />
           {/* Avatar */}
           <img
             src={currentUser?.photoUrl || Image}
@@ -94,7 +97,7 @@ export default function Profile() {
       </div>
 
       {/* Banner gradient */}
-      {/* <div className="h-28 w-full bg-custom-blue" /> */}
+      <div className="h-28 w-full bg-custom-blue" />
       {/* <div className="h-28 w-full bg-gradient-to-r from-[#0063a4] via-[#ff0b80] to-[#fcba4d]" /> */}
 
       {/* Profile Card */}
@@ -111,7 +114,7 @@ export default function Profile() {
               <h2 className="font-semibold text-lg text-gray-800">
                 {currentUser.displayName || "User Name"}
               </h2>
-              <p className="text-sm text-gray-500">
+              <p className="text-sm text-gray-700">
                 {currentUser.email || "Email"}
               </p>
             </div>
@@ -124,53 +127,53 @@ export default function Profile() {
         {/* Form Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
           <div>
-            <label className="text-sm text-gray-500">Full Name</label>
+            <label className="text-sm text-gray-700">Full Name</label>
             <input
               type="text"
               placeholder="Your First Name"
               value={currentUser.displayName || ""}
               readOnly
-              className="w-full mt-1 p-3 bg-gray-50 border rounded-lg text-sm text-gray-700 placeholder-gray-400 focus:outline-none"
+              className="w-full mt-1 p-3 bg-gray-50 shadow-sm border border-gray-300 rounded-lg text-sm text-gray-700 placeholder-gray-400 focus:outline-none"
             />
           </div>
           <div>
-            <label className="text-sm text-gray-500">Nick Name</label>
+            <label className="text-sm text-gray-700">Nick Name</label>
             <input
               type="text"
               placeholder="Your Nick Name"
-              className="w-full mt-1 p-3 bg-gray-50 border rounded-lg text-sm text-gray-700 placeholder-gray-400 focus:outline-none"
+              className="w-full mt-1 p-3 bg-gray-50 shadow-sm border border-gray-300 rounded-lg text-sm text-gray-700 placeholder-gray-400 focus:outline-none"
             />
           </div>
           <div>
-            <label className="text-sm text-gray-500">Gender</label>
-            <select className="w-full mt-1 p-3 bg-gray-50 border rounded-lg text-sm text-gray-700 focus:outline-none">
+            <label className="text-sm text-gray-700">Gender</label>
+            <select className="w-full mt-1 p-3 bg-gray-50 shadow-sm border border-gray-300 rounded-lg text-sm text-gray-700 focus:outline-none">
               <option>Select a Gender</option>
               <option>Male</option>
               <option>Female</option>
             </select>
           </div>
           <div>
-            <label className="text-sm text-gray-500">Country</label>
+            <label className="text-sm text-gray-700">Country</label>
             <input
               type="text"
               placeholder="Your Country"
-              className="w-full mt-1 p-3 bg-gray-50 border rounded-lg text-sm text-gray-700 placeholder-gray-400 focus:outline-none"
+              className="w-full mt-1 p-3 bg-gray-50 shadow-sm border border-gray-300 rounded-lg text-sm text-gray-700 placeholder-gray-400 focus:outline-none"
             />
           </div>
           <div>
-            <label className="text-sm text-gray-500">Language</label>
+            <label className="text-sm text-gray-700">Language</label>
             <input
               type="text"
               placeholder="Your Language"
-              className="w-full mt-1 p-3 bg-gray-50 border rounded-lg text-sm text-gray-700 placeholder-gray-400 focus:outline-none"
+              className="w-full mt-1 p-3 bg-gray-50 shadow-sm border border-gray-300 rounded-lg text-sm text-gray-700 placeholder-gray-400 focus:outline-none"
             />
           </div>
           <div>
-            <label className="text-sm text-gray-500">Time zone</label>
+            <label className="text-sm text-gray-700">Time zone</label>
             <input
               type="text"
               placeholder="Your Time Zone"
-              className="w-full mt-1 p-3 bg-gray-50 border rounded-lg text-sm text-gray-700 placeholder-gray-400 focus:outline-none"
+              className="w-full mt-1 p-3 bg-gray-50 shadow-sm border border-gray-300 rounded-lg text-sm text-gray-700 placeholder-gray-400 focus:outline-none"
             />
           </div>
         </div>
@@ -178,7 +181,7 @@ export default function Profile() {
         {/* Email Section */}
         <div className="mt-8">
           <h3 className="font-semibold text-gray-800 mb-3">My email Address</h3>
-          <div className="flex items-center gap-3 bg-gray-50 border rounded-lg p-4">
+          <div className="flex items-center gap-3 bg-gray-50 shadow-sm border border-gray-300 rounded-lg p-4">
             <div className="w-8 h-8 flex items-center justify-center rounded-full bg-blue-100">
               <span className="text-blue-600 font-bold">✉</span>
             </div>
@@ -189,9 +192,12 @@ export default function Profile() {
               <p className="text-xs text-gray-400">1 month ago</p>
             </div>
           </div>
-          <button className="mt-4 text-blue-600 text-sm font-medium px-4 py-2 rounded-lg hover:bg-blue-50 transition">
-            + Add Email Address
-          </button>
+          <a
+            href="/courses"
+            className="mt-4 block text-custom-blue text-sm font-medium px-4 py-2 rounded-lg transition"
+          >
+            + Enroll for more courses
+          </a>
         </div>
       </div>
 

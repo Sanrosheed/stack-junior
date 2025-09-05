@@ -6,7 +6,13 @@ import { useAuth } from "../../../contexts/authContext";
 
 export default function NavBar({ backgroundColor, text, coloredLogo }) {
   const [isOpen, setIsOpen] = useState(false);
-  const { userLoggedIn } = useAuth();
+  const { userLoggedIn, currentUser } = useAuth();
+
+  const accountLink = userLoggedIn
+    ? currentUser?.email === "admin@gmail.com"
+      ? "/admin-dashboard"
+      : "/profile"
+    : "/sign-in";
 
   const handleToggle = () => {
     setIsOpen(!isOpen);
@@ -59,7 +65,7 @@ export default function NavBar({ backgroundColor, text, coloredLogo }) {
         {/* button */}
         <div className="hidden md:flex items-center space-x-16 text-lg z-50">
           <h1 className="font-semibold cursor-pointer">
-            <a href={userLoggedIn ? "/profile" : "/sign-in"}>My Account</a>
+            <a href={accountLink}>My Account</a>
           </h1>
           <a href={userLoggedIn ? "/courses" : "/sign-in"}>
             <button className="text-white lg:block bg-custom-pink px-6 py-2 rounded-full font-semibold cursor-pointer">
@@ -87,10 +93,7 @@ export default function NavBar({ backgroundColor, text, coloredLogo }) {
             </a>
           </li>
           <li>
-            <a
-              href={userLoggedIn ? "/profile" : "/sign-in"}
-              className="block hover:text-custom-pink"
-            >
+            <a href={accountLink} className="block hover:text-custom-pink">
               My Account
             </a>
           </li>
